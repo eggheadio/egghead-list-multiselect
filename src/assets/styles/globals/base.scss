@@ -1,0 +1,21 @@
+// Consider creating a resets file
+//@import "./resets";
+
+// Consider creating a file for font definitions
+//@import "./fonts";
+
+// Place styles for Rails views only here
+
+html {
+  background-color: $base-secondary;
+}
+
+
+
+:global {
+  @import "./views/react-select.scss";
+  @import "./views/bitmovin-player.scss";
+  @import "./views/hljs.scss";
+  @import "../resources/tachyons-egghead-additions.scss";
+
+}

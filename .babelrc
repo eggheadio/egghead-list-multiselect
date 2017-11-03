@@ -1,0 +1,26 @@
+{
+  "presets": [
+    [
+      "es2015",
+      {
+        "modules": false
+      }
+    ],
+    "es2016",
+    "react",
+    "stage-0"
+  ],
+  "plugins": [
+    "transform-decorators-legacy"
+  ],
+  "env": {
+    "test": {
+      "presets": [
+        "es2015",
+        "es2016",
+        "react",
+        "stage-0"
+      ]
+    }
+  }
+}

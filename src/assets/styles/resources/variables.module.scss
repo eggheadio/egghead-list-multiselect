@@ -1,0 +1,56 @@
+// Variables and mixins defined here are available in your CSS module files
+// Colors come from https://github.com/eggheadio/tachyons-colors
+
+@mixin mockIcon {
+  background-color: blue;
+  display: block;
+  width: 19px;
+  height: 19px;
+}
+
+// Custom colors outside of Tachyons
+$dark-gray-secondary: #B0B6BE;
+$orange-yellow: #F59E33;
+
+// These MUST be in-sync with
+// https://github.com/eggheadio/tachyons-egghead/blob/master/src/tachyons.css#L60
+$mobile-max-width: 40rem;
+$tablet-max-width: 62rem;
+
+@mixin mobile {
+  @media screen and (max-width: #{$mobile-max-width - 0.0625rem}) {
+    @content;
+  }
+}
+
+@mixin non-mobile {
+  @media screen and (min-width: #{$mobile-max-width}) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: #{$mobile-max-width}) and (max-width: #{$tablet-max-width - 0.0625rem}) {
+    @content;
+  }
+}
+
+@mixin non-desktop {
+  @media screen and (max-width: #{$tablet-max-width - 0.0625rem}) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: #{$tablet-max-width}) {
+    @content;
+  }
+}
+
+@mixin child-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
