@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {StaticRouter} from 'react-router'
-import Pricing from './screens/Pricing'
 import axios from 'axios'
 
 //replace this with a valid JWT to auth against the API as needed
@@ -13,7 +12,6 @@ class App extends Component {
 
           <div className='bg-base vh-100'>
             <div className='flex justify-center bg-gray pa5'>
-              <Pricing/>
             </div>
 
           </div>
