@@ -1,6 +1,15 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component, Fragment, Children } from 'react'
+import PropTypes from 'prop-types'
+import { isFunction } from "lodash";
+
 
 export default class List extends Component {
+
+    static propTypes = {
+        selectionList: PropTypes.array,
+        render: PropTypes.func,
+        children: PropTypes.func
+    }
 
     state = {
         selected: [],
@@ -9,10 +18,15 @@ export default class List extends Component {
 
     componentWillMount = () => {
         const { selectionList } = this.props;
-
-        this.setState({
-            selectionList: selectionList
-        })
+        if (selectionList === undefined || selectionList === []) {
+            this.setState({
+                selectionList: []
+            })
+        } else {
+            this.setState({
+                selectionList: selectionList
+            })
+        }
     }
 
     componentWillReceiveProps = (nextProps) => {
@@ -31,7 +45,6 @@ export default class List extends Component {
 
 
     select = (obj) => {
-        console.log(obj);
         // check if the selection exists in the selectionList 
         // if it exists then add it to the selected List
         if (this.state.selectionList.indexOf(obj) >= 0) {
@@ -42,7 +55,6 @@ export default class List extends Component {
     }
 
     remove = (obj, index) => {
-        console.log(obj);
         // check if the selection exists in the selected list 
         // if it exists then remove it from selected
         const indexInSelected = this.state.selected.indexOf(obj);
@@ -60,12 +72,19 @@ export default class List extends Component {
     render() {
 
         const {
-            render
+            render,
+            children
         } = this.props;
+
+        let renderFn = render;
+
+        if( children && isFunction(children)){
+            renderFn = children;
+        }
 
         return (
             <Fragment>
-                {render(this.state.selectionList, this.state.selected, this.select, this.remove)}
+                {renderFn(this.state.selectionList, this.state.selected, this.select, this.remove)}
             </Fragment>
         )
     }
