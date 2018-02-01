@@ -1,22 +1,23 @@
 import React, { Component, Fragment } from 'react'
 import List from "components/react-list";
-import { isFunction } from "lodash";
 import { css } from "glamor"
 
-
-const box = css({
-    height: "16px",
-    width: "16px"
+const scrollSectionStyle = css({
+    height: "250px",
+    maxHeight: "250px",
+    overflowY: "auto"
 })
 
-const rowHeight = css({
-    height: "3em"
+const lastChildStyle = css({
+    "&:last-child": {
+        borderBottomWidth: "0px"
+    }
 })
 
-const placeHolderStyle = css({
+const inputStyle = css({
+    height: "2em",
     "::placeholder": {
         color: "#aaa",
-        fontSize: ".6em",
         paddingLeft: "1em",
         alignItem: "center",
         display: "flex"
@@ -26,18 +27,17 @@ const placeHolderStyle = css({
 export default class LessonSelector extends Component {
 
     state = {
-        lessonList: ["akash", "joel", "vojta", "taylor", "evgeniy"]
+        lessonList: ["akash", "vojta", "evgeniy", "joel", "taylor", "raquel", "pete keen"]
     }
 
-    checkboxChanged = (event, object, index, select, remove) => {
+    checkboxChanged = (event, object, select, remove) => {
         console.log(event.target.checked);
         if (event.target.checked === true) {
             select(object)
         } else {
-            remove(object, index)
+            remove(object)
         }
     }
-
 
     render() {
 
@@ -46,57 +46,56 @@ export default class LessonSelector extends Component {
                 <List
                     selectionList={this.state.lessonList}
                     render={
-                        (selectionList, selected, select, remove) => {
-
+                        (selectionList, selected, select, selectAll, remove, removeAll) => {
                             return (
-
-                                <div className="bg-white br2 shadow-1 flex w-100">
-
-                                    <div className="flex flex-column br bw1 b--black-10 w-50">
-                                        <div
-                                            className="flex items-center pa3 f3 black avenir bb bw1 b--black-10"
-                                            {...rowHeight}>
-                                            Prerequisite Content
-                                            </div>
-                                        {
-                                            selected.map((item, i) =>
-                                                <div className="bb bw1 b--black-10 pa3 flex items-cneter"
-                                                    key={i}>
-                                                    <div className="dib ba bw1 b--blue br2 bg-light-blue" onClick={() => { remove(item, i) }} {...box}>
-
-                                                    </div>
-                                                    <span className="pl3">{item}</span>
-                                                </div>)
-                                        }
-                                        <div className="items-bottom pv4 ph3">
-                                            clear list
-                                    </div>
-                                    </div>
-                                    <div className="flex flex-column bg-light-gray w-50">
-                                        <div className="pa2 bb bw1 b--black-10 items-center">
-                                            <input type="text" className="block ma2 f2 black avenir w-90 br2 ba bw1 b--black-10 flex"
-                                                placeholder="place holder"{...placeHolderStyle} />
+                                <div className="bg-white br2 shadow-1 flex flex-column w-100">
+                                    <div className="flex bb bw1 b--black-10">
+                                        <div className="flex items-center pa3 f4 black avenir w-50  br bw1 b--black-10">
+                                            {"Prerequisite Content"}
                                         </div>
-                                        {
-                                            selectionList.map((item, i) =>
-                                                <div className="bb bw1 b--black-10 pa3"
-                                                    key={i}>
-                                                    <input type="checkbox" onChange={(event) => this.checkboxChanged(event, item, i, select, remove)} />
-                                                    <span className="pl3">{item}</span>
-                                                </div>)
-
-                                        }
-                                        <div className="items-bottom pv4 ph3">
-                                            clear list
-                                    </div>
+                                        <div className="pa2 items-center w-50" >
+                                            <input type="text" className="block ma2 black avenir w-80 br2 ba bw1 b--black-10 flex"
+                                                placeholder="place holder"{...inputStyle} />
+                                        </div>
                                     </div>
 
+                                    <div className="flex flex-row">
+                                        <div className="flex flex-column w-50 br bw1 b--black-10 justify-between">
+                                            <ul className="ma0 pa0" {...scrollSectionStyle}>
+                                                {
+                                                    selected.map((item, i) =>
+                                                        <li className="bb bw1 b--black-10 pa3 flex list"
+                                                            key={i} {...lastChildStyle}>
+                                                            <span className="pl3">{item}</span>
+                                                        </li>)
+                                                }
+                                            </ul>
+                                            <div className="items-bottom pa4 bt bw1 b--black-10">
+                                                <div className="f6" onClick={() => { removeAll() }}> Clear list </div>
+                                            </div>
+                                        </div>
+                                        <div className="flex flex-column bg-light-gray w-50 justify-between">
+                                            <ul {...scrollSectionStyle} className="ma0 pa0">
+                                                {
+                                                    selectionList.map((item, i) =>
+                                                        <li className="bb bw1 b--black-10 pa3 list"
+                                                            key={i} {...lastChildStyle}>
+                                                            <input type="checkbox" onChange={(event) => this.checkboxChanged(event, item, select, remove)} />
+                                                            <span className="pl3">{item}</span>
+                                                        </li>)
+                                                }
+                                            </ul>
+                                            <div className="flex items-bottom pa4 bt bw1 b--black-10 justify-between">
+                                                <div className="f6 self-start" onClick={() => { selectAll() }}> Select All </div>
+                                                <div className="f6 self-end" onClick={() => { removeAll() }}> Clear list </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            );
-                        }
-                    } />
+                            )
+                        }} />
 
-                <div className="pa5"> second version</div>
+                <div className="pa5"> second type </div>
                 <List
                     selectionList={this.state.lessonList}>
                     {(selectionList, selected, select, remove) => {
@@ -111,14 +110,13 @@ export default class LessonSelector extends Component {
                             <div>
                                 {
                                     selected.map((item, i) =>
-                                        <button onClick={() => { remove(item, i) }} key={i}> {item} </button>)
+                                        <button onClick={() => { remove(item) }} key={i}> {item} </button>)
                                 }
                             </div>
                         </Fragment>);
                     }
                     }
                 </List>
-            </div>
-        )
+            </div>)
     }
 }
