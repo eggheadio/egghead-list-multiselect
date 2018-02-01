@@ -2,9 +2,34 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+// Max-width containers
 .eh-mw9 {
   max-width: 78rem;
 }
+
+// Transitions
 .eh-transition {
   transition: all 150ms ease-in-out;
+}
+
+// Shadows
+.eh-shadow-1,
+.eh-shadow-1-hover:hover {
+  box-shadow: 0 0 4px -1px rgba($black, 0.2);
+}
+
+.eh-shadow-2,
+.eh-shadow-2-hover:hover {
+  box-shadow: 0 2px 8px -2px rgba($black, 0.2);
+}
+
+.eh-shadow-3,
+.eh-shadow-3-hover:hover {
+  box-shadow: 0 5px 10px -3px rgba($black, 0.2);
+}
+
+// Cursors
+.eh-help:hover {
+  cursor: help;
 }

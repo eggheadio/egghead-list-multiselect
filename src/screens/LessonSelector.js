@@ -48,7 +48,7 @@ export default class LessonSelector extends Component {
                     render={
                         (selectionList, selected, select, selectAll, remove, removeAll) => {
                             return (
-                                <div className="bg-white br2 shadow-1 flex flex-column w-100">
+                                <div className="bg-white br2 eh-shadow-1 flex flex-column w-100">
                                     <div className="flex bb bw1 b--black-10">
                                         <div className="flex items-center pa3 f4 black avenir w-50  br bw1 b--black-10">
                                             {"Prerequisite Content"}
