@@ -15,12 +15,12 @@ const lastChildStyle = css({
 })
 
 const inputStyle = css({
-    height: "2em",
+    height: "2.2em",
+    textIndent: "1em",
     "::placeholder": {
         color: "#aaa",
-        paddingLeft: "1em",
         alignItem: "center",
-        display: "flex"
+        display: "flex",
     }
 })
 
@@ -48,14 +48,14 @@ export default class LessonSelector extends Component {
                     render={
                         (selectionList, selected, select, selectAll, remove, removeAll) => {
                             return (
-                                <div className="bg-white br2 shadow-1 flex flex-column w-100">
+                                <div className="bg-white br2 shadow-1 flex flex-column w-100 overflow-hidden">
                                     <div className="flex bb bw1 b--black-10">
                                         <div className="flex items-center pa3 f4 black avenir w-50  br bw1 b--black-10">
                                             {"Prerequisite Content"}
                                         </div>
-                                        <div className="pa2 items-center w-50" >
-                                            <input type="text" className="block ma2 black avenir w-80 br2 ba bw1 b--black-10 flex"
-                                                placeholder="place holder"{...inputStyle} />
+                                        <div className="pa2 w-50 flex justify-around" >
+                                            <input type="text" className="f6 block ma2 pl1 black avenir w-90 br2 ba bw1 b--black-10 flex"
+                                                placeholder="Search for lessons"{...inputStyle} />
                                         </div>
                                     </div>
 
