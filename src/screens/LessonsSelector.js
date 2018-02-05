@@ -1,11 +1,12 @@
 import React, { Component, Fragment } from 'react'
 import List from 'components/SelectionList'
 import Button from 'components/Button'
+import Icon from 'components/Icon'
 import { css } from 'glamor'
 
 const scrollSectionStyle = css({
-  height: '250px',
-  maxHeight: '250px',
+  height: '300px',
+  maxHeight: '300px',
   overflowY: 'auto',
 })
 
@@ -123,7 +124,7 @@ export default class LessonsSelector extends Component {
                   <div className="pa2 w-50 flex justify-around">
                     <input
                       type="text"
-                      className="f6 block ma2 pl1 black avenir w-90 br2 ba bw1 b--black-10 flex"
+                      className="f6 block mv2 mh1 w-100 pl1 black avenir w-90 br2 ba bw1 b--black-10 flex"
                       placeholder="Search for lessons"
                       {...inputStyle}
                       onChange={this.onSearchInputChanged}
@@ -131,12 +132,12 @@ export default class LessonsSelector extends Component {
                   </div>
                 </div>
 
-                <div className="flex flex-row">
+                <div className="flex">
                   <div className="flex flex-column w-50 br bw1 b--black-10 justify-between">
                     <ul className="ma0 pa0" {...scrollSectionStyle}>
                       {selected.map((item, i) => (
                         <li
-                          className="bb bw1 b--black-10 pa3 flex list"
+                          className="bb bw1 b--black-10 ph3 pv2 flex list"
                           key={i}
                           {...lastChildStyle}
                         >
@@ -144,23 +145,12 @@ export default class LessonsSelector extends Component {
                         </li>
                       ))}
                     </ul>
-                    <div className="items-bottom pa4 bt bw1 b--black-10">
-                      <div
-                        className="f6"
-                        onClick={() => {
-                          removeAll()
-                          this.clearAllSelected()
-                        }}
-                      >
-                        Clear list
-                    </div>
-                    </div>
                   </div>
                   <div className="flex flex-column bg-light-gray w-50 justify-between">
                     <ul {...scrollSectionStyle} className="ma0 pa0">
                       {selectionList.map((item, i) => (
                         <li
-                          className="bb bw1 b--black-10 pa3 list"
+                          className="bb bw1 b--black-10 ph3 pv2 list"
                           key={i}
                           {...lastChildStyle}
                         >
@@ -180,36 +170,50 @@ export default class LessonsSelector extends Component {
                         </li>
                       ))}
                     </ul>
-                    <div className="flex items-bottom ph3 pv4 bt bw1 b--black-10 justify-between">
-                      <div className="f6 self-start flex items-center">
-                        <input
-                          type="checkbox"
-                          checked={this.state.allSelected}
-                          onChange={event => {
-                            this.toggleSelected()
-                            if (this.state.allSelected) {
-                              removeAll()
-                              this.clearAllSelected()
-                            } else {
-                              selectAll()
-                            }
-                          }}
-                        />
-                        <label className="pl2">Select All</label>
-                      </div>
-                      <Button
-                        className="self-end"
-                        outline
-                        size="small"
-                        color="blue"
-                        onClick={event => {
-                          removeAll()
-                          this.clearAllSelected()
-                        }}
-                      >
-                        Clear list
-                    </Button>
+                  </div>
+                </div>
+                <div className="flex bt bw1 b--black-10 justify-between">
+                  <div className="flex items-center pa3 w-50 br bw1 b--black-10">
+                    <div
+                      className="f6 self-bottom flex items-center pointer"
+                      onClick={() => {
+                        removeAll()
+                        this.clearAllSelected()
+                      }}
+                    >
+                      <Icon type="crosshairs" />
+                      <span className="pl2">Clear list</span>
                     </div>
+                  </div>
+                  <div className="flex justify-between items-center pa3 w-50">
+                    <div className="f6">
+                      <input
+                        type="checkbox"
+                        checked={this.state.allSelected}
+                        onChange={event => {
+                          this.toggleSelected()
+                          if (this.state.allSelected) {
+                            removeAll()
+                            this.clearAllSelected()
+                          } else {
+                            selectAll()
+                          }
+                        }}
+                      />
+                      <label className="pl2">Select All</label>
+                    </div>
+                    <Button
+                      className="self-end"
+                      outline
+                      size="small"
+                      color="blue"
+                      onClick={event => {
+                        removeAll()
+                        this.clearAllSelected()
+                      }}
+                    >
+                      Clear list
+                    </Button>
                   </div>
                 </div>
               </div>
