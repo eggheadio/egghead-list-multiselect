@@ -181,7 +181,7 @@ export default class LessonsSelector extends Component {
                         this.clearAllSelected()
                       }}
                     >
-                      <Icon type="crosshairs" />
+                      <Icon type="cancel" size={"small"}/>
                       <span className="pl2">Clear list</span>
                     </div>
                   </div>
