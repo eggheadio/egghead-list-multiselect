@@ -1,0 +1,390 @@
+.bodyOverflowHidden {
+  overflow: hidden;
+  position: fixed;
+}
+.link {
+  text-decoration:none;
+  transition: color .15s ease-in;
+  &:link,
+  &:visited,
+  &:hover,
+  &:active {
+    transition: color .15s ease-in;
+  }
+  &:focus {
+    transition: color .15s ease-in;
+    outline: none;
+  }
+}
+.headerCompensator {
+  height: 56px;
+  @include desktop {
+    height: 80px;
+  }
+}
+.header {
+  @extend .headerCompensator;
+  background: $base-secondary;
+  width: 100%;
+  z-index: 1049;
+  display: flex;
+  flex-direction: column;
+  transition: transform .3s ease-in-out;
+  will-change: transform;
+  transform: translateY(0);
+  position: fixed;
+  left: 0;
+  top: 0;
+  @include desktop {
+    justify-content: center;
+  }
+  &.expanded {
+    min-height: 100%;
+    z-index: 1100;
+    justify-content: flex-start;
+  }
+  &.hidden {
+    transform: translateY(-100%);
+  }
+}
+.headerContentWrapper {
+  position: fixed;
+  width: 100%;
+  z-index: 999;
+  background: $base-secondary;
+  @include desktop {
+    position: static;
+  }
+}
+.headerContentContainer {
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  max-width: 78rem;
+  @include desktop {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+.headerContentInner {
+  @extend .headerCompensator;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.logoLink {
+  display: block;
+  margin-right: 40px;
+}
+.headerLink {
+  @extend .link;
+  background: $transparent;
+  color: $white-60;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+  font-family: sans-serif;
+  font-weight: 600;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  border: none;
+  &.headerLinkGoPro {
+    color: $green;
+    &:hover {
+      color: $green-secondary;
+    }
+    & + a {
+      position: relative;
+      &:before {
+        content: '';
+        display: block;
+        width: 1px;
+        height: 11px;
+        background: $white-20;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        position: absolute;
+        margin: auto;
+      }
+    }
+  }
+  &:hover {
+    color: $white;
+  }
+  @include desktop {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+}
+.headerLinks {
+  display: none;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  @include desktop {
+    display: flex;
+  }
+}
+.navigationLink {
+  display: flex;
+  align-items: center;
+  height: 3rem;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  color: $white;
+  transition: 150ms;
+  font-size: 15px;
+  &:hover {
+    background: $dark-blue;
+  }
+  .iconHolder {
+    margin-right: 1rem;
+  }
+}
+.profileHeaderItemsHolder {
+  align-items: center;
+  display: none;
+  @include desktop {
+    display: flex;
+  }
+}
+
+.dropdown {
+  position: relative;
+}
+.dropdownTrigger {
+  @extend .headerLink;
+  cursor: pointer;
+  min-width: 150px;
+  justify-content: flex-end;
+  .triggerIconHolder {
+    margin-right: 1rem;
+  }
+  .dropdownTriggerTitle {
+    align-self: center;
+  }
+}
+.dropdownContentHolder {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  position: absolute;
+  width: 100%;
+  top: 80px;
+  background: $base;
+  box-shadow: 0 6px 8px 0 rgba($black, 0.25);
+}
+.dropdownLinksList {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+.dropdownSeparator {
+  height: 1px;
+  background: $dark-blue;
+  margin: 0.25rem 1rem;
+  @include desktop {
+    margin: 0.5rem 1rem;
+  }
+}
+.dropdownUsername {
+  font-size: 14px;
+  text-transform: none;
+  letter-spacing: normal;
+  font-weight: normal;
+  color: $white;
+  display: flex;
+  align-items: center;
+  &:after {
+    margin: 0 6px 0 10px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 4px 3px 0px 3px;
+    border-color: $white transparent transparent transparent;
+    content: '';
+    display: block;
+  }
+}
+.dropdownUserAvatar {
+  display: block;
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+  margin-left: 0.5rem;
+}
+.dropdownClosed {
+  display: none;
+}
+.dropdownOpened {
+  background: $base;
+  box-shadow: 0 6px 8px 0 rgba($black, 0.25);
+  border-bottom-color: transparent;
+}
+.mobileMenuTrigger {
+  cursor: pointer;
+  position: relative;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  transition: transform 0.3s;
+  will-change: transform;
+  @include desktop {
+    display: none;
+  }
+}
+.mobileMenuTriggerInner {
+  height: 2px;
+  background: $white;
+  width: 100%;
+  transition: transform 0.3s;
+  will-change: transform;
+  &:before,
+  &:after {
+    content: '';
+    width: 100%;
+    height: 2px;
+    background: $white;
+    position: absolute;
+    left: 0;
+    transition: transform 0.3s;
+    will-change: transform;
+  }
+  &:before {
+    transform: translateY(7px);
+  }
+  &:after {
+    transform: translateY(-7px);
+  }
+}
+.mobileMenuTriggerOpened {
+  transform: rotate(45deg);
+  .mobileMenuTriggerInner {
+    &:before,
+    &:after {
+      transform: rotate(90deg);
+    }
+  }
+}
+.mobileMenu {
+  width: 100%;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  padding-top: 56px;
+  .headerLink,
+  .dropdownTrigger {
+    border-bottom: 1px solid $base;
+    height: 62px;
+    padding-left: 1rem;
+    color: $white;
+    font-size: 15px;
+  }
+  .dropdownTrigger {
+    width: 100%;
+    justify-content: flex-start;
+    position: relative;
+  }
+  .dropdownOpened {
+    background: none;
+    box-shadow: none;
+  }
+  .dropdownContentHolder {
+    top: 62px;
+    background: none;
+    box-shadow: none;
+    position: static;
+    border-bottom: 1px solid $base;
+  }
+  .navigationLink {
+    height: 42px;
+    font-size: 14px;
+  }
+  .dropdownSeparator {
+    background: $base;
+  }
+  .headerLinkGoPro {
+    color: $green;
+    padding: 8px 0;
+    border: none;
+    font-size: 14px;
+    height: auto;
+  }
+}
+.mobileMenuBody {
+  flex-grow: 1;
+  width: 100%;
+  border-top: 1px solid $base;
+  overflow: scroll;
+}
+.mobileMenuProfileLink {
+  display: flex;
+  align-items: center;
+  color: white;
+  text-decoration: none;
+  padding: 0.25rem 1rem;
+  font-size: 15px;
+  height: 62px;
+  border-bottom: 1px solid $base;
+}
+.mobileMenuUserAvatar {
+  width: 40px;
+  height: 40px;
+  display: block;
+  border-radius: 50%;
+  margin-right: 1rem;
+}
+.mobileMenuFooter {
+  display: flex;
+  width: 100%;
+  flex-shrink: 0;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}
+.mobileMenuFooterLink {
+  @extend .link;
+  letter-spacing: .1em;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: $white;
+  padding: 8px 0;
+  border: none;
+  font-size: 14px;
+  font-family: sans-serif;
+}
+.mobileMenuSignLinksHolder {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.directionArrow {
+  position: absolute;
+  right: 1rem;
+  transition: transform 250ms;
+  transform: rotate(0deg);
+  width: 36px;
+  height: 36px;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  &.directionArrowRotated {
+    transform: rotate(90deg);
+  }
+}
+
+.disable{
+  display: none;
+}

@@ -1,0 +1,9 @@
+@include mobile {
+    .actionButton {
+        background: white;
+        border-left: none;
+        & + & {
+            border-top: 1px solid $gray-secondary;
+        }
+    }
+}

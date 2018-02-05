@@ -1,0 +1,11 @@
+.cardInfo {
+  min-height: 40px;
+}
+.cardInfoHovered {
+  background: $white-secondary;
+}
+.cardInfoHovered .playBtnWrapper {
+  opacity: 1;
+  transition: opacity .15s ease-in;
+  bottom: 5px;
+}

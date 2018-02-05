@@ -1,0 +1,207 @@
+$row-height: 80px;
+$mobile-row-height: 90px;
+$content-icon-col-width: 55px;
+$content-icon-col-width-mobile: 48px;
+$transition-duration: 0.15s;
+$transition-timing-function: ease-out;
+
+$wrapperHoverBg: #fafafa;
+
+.cardBorder {
+  &:not(:first-child) {
+    border-top: 1px solid $gray-secondary;
+  }
+}
+
+.cardBorderRadius {
+  &:first-child {
+    border-top-left-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
+  }
+  &:last-child {
+    border-bottom-left-radius: 0.25rem;
+    border-bottom-right-radius: 0.25rem;
+  }
+}
+
+.cardShadow {
+  box-shadow: 0 0 8px 0 rgba(49,49,50,0.05);
+  &:first-child {
+    margin-top: 0;
+  }
+}
+
+.duration {
+  padding-top: 2px;
+}
+
+.bullet {
+  span {
+    position: relative;
+    left: -5px;
+  }
+}
+
+.orderNumber {
+  font-size: 12px;
+  margin-right: 4px;
+}
+
+.rowWrapper {
+  min-height: $mobile-row-height;
+  @include non-mobile {
+    min-height: $row-height;
+  }
+}
+
+.infoRow {
+  max-width: 270px;
+  flex-shrink: 0;
+  @include tablet {
+    max-width: 230px;
+  }
+}
+
+.wrapperHoverStyles {
+  transition: $transition-duration;
+  &:hover {
+    background: $wrapperHoverBg;
+  }
+}
+
+.title {
+  font-size: 18px;
+  @include mobile {
+    font-size: 16px;
+  }
+}
+
+.innerContent {
+  pointer-events: none;
+  padding-top: 18px;
+  padding-bottom: 18px;
+  &:hover {
+    .instructorName {
+      text-decoration-color: rgba($blue, 0.3);
+    }
+  }
+}
+.instructorName {
+  font-size: 13px;
+  transition: text-decoration-color 150ms;
+  text-decoration-color: rgba($dark-gray, 0.3);
+}
+
+.subLesson {
+  box-shadow: inset 0 -0.5px 0 0 rgba(0, 0, 0, 0.15);
+}
+
+.contentIconContainer {
+  display: flex;
+  position: relative;
+  transform: translateY(-50%);
+  width: $content-icon-col-width;
+  flex-shrink: 0;
+  @include mobile {
+    width: $content-icon-col-width-mobile;
+  }
+}
+
+.contentIconWrapper {
+  display: flex;
+  position: relative;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.animatedIcon {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  transition-property: opacity, transform;
+  transition-duration: $transition-duration;
+  transition-timing-function: $transition-timing-function;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  @include mobile {
+    justify-content: flex-start;
+  }
+}
+
+.contentIconWithCheckMark {
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 1;
+}
+
+.contentIconWithCheckMarkHovered {
+  top: 50%;
+  transform: translateY(-150%);
+  opacity: 0;
+}
+
+.playIcon {
+  bottom: 50%;
+  transform: translateY(150%);
+  opacity: 0;
+}
+
+.playIconHovered {
+  bottom: 50%;
+  transform: translateY(50%);
+  opacity: 1;
+}
+
+.checkWatchedIconSmall {
+  right: 5px;
+  bottom: -5px;
+}
+
+.checkWatchedIconMedium {
+  right: 3px;
+  bottom: 3px;
+}
+
+.subListContentIcon {
+  display: inline-block;
+  position: relative;
+}
+
+.pointerEventsOn {
+  pointer-events: auto;
+}
+
+.instructor {
+  @include mobile {
+    margin-left: 16px;
+  }
+}
+.instructorAvatar {
+  width: 24px;
+  height: 24px;
+}
+.drawerToggle {
+  transition: 150ms;
+  border-style: solid;
+  border-color: $gray-secondary;
+  border-width: 0 0 0 1px;
+  @include mobile {
+    border-width: 1px 0 0 0;
+  }
+  @include non-mobile {
+    width: 36px;
+  }
+}
+.arrowHolder {
+  transition: 150ms;
+}
+.arrowRotated {
+  transform: rotate(-180deg);
+}

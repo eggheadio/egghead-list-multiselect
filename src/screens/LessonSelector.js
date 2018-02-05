@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import List from "components/react-list";
+import Button from "components/Button";
 import { css } from "glamor"
 
 const scrollSectionStyle = css({
@@ -86,8 +87,20 @@ export default class LessonSelector extends Component {
                                                 }
                                             </ul>
                                             <div className="flex items-bottom pa4 bt bw1 b--black-10 justify-between">
-                                                <div className="f6 self-start" onClick={() => { selectAll() }}> Select All </div>
-                                                <div className="f6 self-end" onClick={() => { removeAll() }}> Clear list </div>
+                                                <div className="f6 self-start" onClick={() => { selectAll() }}>
+                                                    <input type="checkbox" onChange={(event) => {
+                                                        console.log("object")
+
+                                                    }} />
+                                                    <p> Select All </p>
+                                                </div>
+                                                <Button className="self-end"
+                                                    outline
+                                                    size="small"
+                                                    color="blue"
+                                                    onClick={() => { removeAll() }}>
+                                                    Clear list
+                                                </Button>
                                             </div>
                                         </div>
                                     </div>

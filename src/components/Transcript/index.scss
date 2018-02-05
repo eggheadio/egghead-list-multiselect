@@ -1,0 +1,24 @@
+.box {
+  min-height: 20rem;
+  font-size: 15px;
+
+  @include tablet {
+    height: auto;
+  }
+}
+
+.subscriptionSectionLogo {
+  width: 67px;
+  height: 86px;
+}
+.subscriptionSectionTitle {
+  font-size: 18px;
+}
+.subscriptionSectionCTA {
+  font-size: 13px;
+  padding: 10px 24px;
+}
+.subscriptionSectionList {
+  font-size: 15px;
+  line-height: 2;
+}

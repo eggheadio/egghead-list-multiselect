@@ -1,0 +1,12 @@
+.hint {
+  cursor: help;
+}
+
+.tooltip {
+  z-index: 99;
+  background: #000;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 5px 10px 0 rgba(52,64,85,0.15);
+}

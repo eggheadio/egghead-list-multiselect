@@ -1,0 +1,45 @@
+.commonClasses {
+  font-size: 15px;
+  padding-right: 42px;
+}
+
+.sizeSmall {
+  max-width: 752px;
+}
+.sizeLarge {
+  max-width: 810px;
+}
+
+.backgroundLight {
+  color: $base-secondary;
+  border-color: $dark-gray-secondary;
+}
+.backgroundDark {
+  color: $white-secondary;
+  border-color: $white-30;
+}
+
+.buttonCommonClasses {
+  font-size: 13px;
+  transition: 150ms;
+  padding-top: 14px;
+  padding-bottom: 14px;
+}
+
+.iconHolder {
+  width: 30px;
+  height: 30px;
+  border-width: 0 0 1px 1px;
+  border-style: dashed;
+  border-color: transparent;
+}
+.iconHolderBorderLight {
+  &:hover {
+    border-color: $white-30;
+  }
+}
+.iconHolderBorderDark {
+  &:hover {
+    border-color: $dark-gray-secondary;
+  }
+}

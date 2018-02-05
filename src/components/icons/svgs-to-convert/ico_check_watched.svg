@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
+    <title>ico_check_watched</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="ico_check_watched">
+            <path d="M0,10 C0,4.4771525 4.47593818,0 10,0 L10,0 C15.5228475,0 20,4.47593818 20,10 L20,10 C20,15.5228475 15.5240618,20 10,20 L10,20 C4.4771525,20 0,15.5240618 0,10 L0,10 Z" id="bubble" fill="#59CD90"></path>
+            <polygon id="check" fill="#FFFFFF" fill-rule="nonzero" points="14.1985738 5.54876706 15.7129595 7.03859052 8.17794207 14.4513959 4.28575799 10.6223399 5.80851376 9.13483208 8.17810767 11.465993"></polygon>
+        </g>
+    </g>
+</svg>

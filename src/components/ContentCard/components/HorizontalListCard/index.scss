@@ -1,0 +1,9 @@
+$widthBreakpoint: 580px;
+$mobileWidth: 280px;
+.container {
+  width: $widthBreakpoint;
+  @media (max-width: $widthBreakpoint) {
+    flex-direction: column;
+    width: $mobileWidth;
+  }
+}

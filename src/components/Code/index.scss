@@ -1,0 +1,7 @@
+.box {
+  min-height: 20rem;
+
+  @include tablet {
+    height: auto;
+  }
+}

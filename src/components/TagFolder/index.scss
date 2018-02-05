@@ -1,0 +1,13 @@
+.tagFolder {
+  &:hover {
+    .tagName {
+      color: $blue;
+      text-decoration-color: rgba($blue, 0.3)
+    }
+  }
+}
+.tagName {
+  font-size: 13px;
+  transition: text-decoration-color 150ms;
+  text-decoration-color: rgba($dark-gray, 0.3)
+}

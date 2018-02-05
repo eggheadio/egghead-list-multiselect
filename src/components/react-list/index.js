@@ -52,8 +52,6 @@ export default class List extends Component {
         }
     }
     selectAll = () => {
-        // check if the selection exists in the selectionList 
-        // if it exists then add it to the selected List
         this.setState({
             selected: [...this.state.selectionList]
         });

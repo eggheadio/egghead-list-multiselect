@@ -1,0 +1,25 @@
+@mixin dropzoneBorder {
+  border-width: 2px;
+  border-color: #666;
+  border-style: dashed;
+  border-radius: 5px;
+}
+
+.active {
+  background: repeating-linear-gradient(45deg,
+    #fff 0,
+    #fff 0,
+    #fff 1px,
+    #6a9dfe 4px
+  );
+  @include dropzoneBorder;
+}
+
+.passive {
+  @include dropzoneBorder;
+}
+
+.button {
+  background:none;
+  border:none;
+}

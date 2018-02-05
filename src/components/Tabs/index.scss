@@ -1,0 +1,9 @@
+.tab {
+  font-size: 15px;
+  border-width: 2px;
+  transition: color 150ms;
+  bottom: -1px;
+  &:hover {
+    color: $white;
+  }
+}
