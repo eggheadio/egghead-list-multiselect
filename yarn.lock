@@ -5758,9 +5758,9 @@ react-icons@^2.2.5:
   dependencies:
     react-icon-base "2.0.7"
 
-react-icons@eggheadio/react-icons#3.9.0:
-  version "3.9.0"
-  resolved "https://codeload.github.com/eggheadio/react-icons/tar.gz/cd9fda4c763ae999612c9e7bac08b592f8d5046e"
+react-icons@eggheadio/react-icons#3.9.10:
+  version "3.9.10"
+  resolved "https://codeload.github.com/eggheadio/react-icons/tar.gz/4a47bcfb84a0cfe8190aedbe1d3295c7c3441378"
   dependencies:
     react "^15.0.0"
     react-dom "^15.0.0"
