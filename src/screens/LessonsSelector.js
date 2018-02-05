@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import List from 'components/SelectionList'
 import Button from 'components/Button'
 import Icon from 'components/Icon'
@@ -181,7 +181,7 @@ export default class LessonsSelector extends Component {
                         this.clearAllSelected()
                       }}
                     >
-                      <Icon type="cancel" size={"small"}/>
+                      <Icon type="cancel" size={"small"} />
                       <span className="pl2">Clear list</span>
                     </div>
                   </div>
@@ -193,7 +193,9 @@ export default class LessonsSelector extends Component {
                         onChange={event => {
                           this.toggleSelected()
                           if (this.state.allSelected) {
-                            removeAll()
+                            remove(this.state.lessonList.filter(
+                              (item) => isSlected(item)
+                            ))
                             this.clearAllSelected()
                           } else {
                             selectAll()

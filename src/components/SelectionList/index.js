@@ -1,6 +1,6 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import {isFunction, includes, uniq} from 'lodash'
+import { isFunction, includes, uniq, difference } from 'lodash'
 
 export default class SelectionList extends Component {
   static propTypes = {
@@ -18,32 +18,42 @@ export default class SelectionList extends Component {
     return true
   }
 
-  select = obj => {
+  select = item => {
     // check if the selection exists in the selectionList
     // if it exists then add it to the selected List
-    const {selectionList} = this.props
+    const { selectionList } = this.props
 
     if (
-      selectionList.indexOf(obj) >= 0 &&
-      this.state.selected.indexOf(obj) < 0
+      selectionList.indexOf(item) >= 0 &&
+      this.state.selected.indexOf(item) < 0
     ) {
       this.setState({
-        selected: [...this.state.selected, obj],
+        selected: [...this.state.selected, item],
       })
     }
   }
 
   selectAll = () => {
-    const {selectionList} = this.props
+    const { selectionList } = this.props
     this.setState({
       selected: uniq([...this.state.selected, ...selectionList]),
     })
   }
 
-  remove = obj => {
+  remove = item => {
     // check if the selection exists in the selected list
     // if it exists then remove it from selected
-    const indexInSelected = this.state.selected.indexOf(obj)
+
+    // obj can be a list too. in that case 
+    // it removes common items
+    if (Array.isArray(item)) {
+      this.setState({
+        selected: difference(this.state.selected, item)
+      })
+      return
+    }
+
+    const indexInSelected = this.state.selected.indexOf(item)
     if (indexInSelected >= 0) {
       const frontArrayPart = this.state.selected.slice(0, indexInSelected)
       const backArrayPart = this.state.selected.slice(
@@ -67,7 +77,7 @@ export default class SelectionList extends Component {
   }
 
   render() {
-    const {render, children, selectionList} = this.props
+    const { render, children, selectionList } = this.props
 
     let renderFn = render
 
