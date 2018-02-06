@@ -48,6 +48,7 @@
     "postcss-loader": "^2.0.6",
     "promise": "8.0.1",
     "react": "^16.0.0",
+    "react-beautiful-dnd": "^4.0.1",
     "react-confirm": "^0.1.16",
     "react-dev-utils": "^4.0.1",
     "react-dnd": "^2.5.1",
