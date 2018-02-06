@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import List from 'components/SelectionList'
+import List from './SelectionList'
 import Button from 'components/Button'
 import Icon from 'components/Icon'
 import { css } from 'glamor'
