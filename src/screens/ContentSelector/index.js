@@ -1,226 +1,143 @@
-import React, { Component } from 'react'
-import List from './SelectionList'
-import Button from 'components/Button'
-import Icon from 'components/Icon'
-import { css } from 'glamor'
+import React from 'react'
+import {some, remove, isEqual, debounce, isUndefined} from 'lodash'
+import {DragDropContext, Draggable, Droppable} from 'react-beautiful-dnd'
+import selectedLessons from './data/selectedLessons'
+import allLessons from './data/lessons'
+import axios from 'axios'
 
-const scrollSectionStyle = css({
-  height: '300px',
-  maxHeight: '300px',
-  overflowY: 'auto',
-})
+//this is actually a component
 
-const lastChildStyle = css({
-  '&:last-child': {
-    borderBottomWidth: '0px',
-  },
-})
+const http = axios.create() //mobx
 
-const inputStyle = css({
-  height: '2.2em',
-  textIndent: '1em',
-  '::placeholder': {
-    color: '#aaa',
-    alignItem: 'center',
-    display: 'flex',
-  },
-})
-
-export default class LessonsSelector extends Component {
-
-  componentWillMount = () => {
-    this.setState({
-      // update this to the relevant sytarting array elements
-      lessonList: [
-        'akash',
-        'vojta',
-        'evgeniy',
-        'joel',
-        'taylor',
-        'raquel',
-        'pete keen',
-      ],
-      defaultList: [
-        'asdfja',
-        'vojsadfta',
-        'evgasdfasdeniy',
-      ],
-      allSelected: false,
-    })
-  }
-
+export default class ContentSelector extends React.Component {
   state = {
-    // update this to be an empty array
-    lessonList: [],
-    defaultList: [],
-    allSelected: false,
+    selectedLessons, //mobx
+    allLessons, //mobx
+    isOpen: false
   }
 
-  lessonCheckboxChanged = (event, object, select, remove) => {
-    if (event.target.checked === true) {
-      select(object)
+  onToggleClick = () => this.setState({isOpen: !this.state.isOpen})
+
+  onSearchInputChange = debounce((changes) => { //mobx
+    if (changes.hasOwnProperty('inputValue') && !isUndefined(changes['inputValue'])) {
+      return http
+        .get(`http://egghead.af:5000/api/v1/lessons?q=${changes['inputValue']}&size=20&page=1`)
+        .then(({data}) => data)
+        .then(allLessons => this.setState({allLessons}))
+    }
+  }, 250)
+
+  removeItem = (item) => { //mobx
+    this.setState({
+      selectedLessons: remove(this.state.selectedLessons, (itemToRemove) => !isEqual(itemToRemove, item))
+    })
+  }
+
+  selectItem = (item) => { //mobx
+    if (some(this.state.selectedLessons, item)) {
+      this.removeItem(item)
     } else {
-      remove(object)
-    }
-  }
-
-  toggleSelected = event => {
-    this.setState({
-      allSelected: !this.state.allSelected,
-    })
-  }
-
-  clearAllSelected = () => {
-    this.setState({
-      allSelected: false,
-    })
-  }
-
-  onSearchInputChanged = event => {
-    console.log(event.target.value);
-    // get the input and search for appropriate
-    // lessons to be updated into this array.
-    this.setState({
-      lessonList: [
-        'soemthing else',
-        'react lesosn'
-      ]
-    })
-    if (event.target.value === '') {
       this.setState({
-        lessonList: [...this.state.defaultList]
+        selectedLessons: [item, ...this.state.selectedLessons],
+        isOpen: true
       })
     }
   }
 
-  componentWillUpdate(nextProps, nextState) {
-    if (nextState.lessonList !== this.state.lessonList) {
-      this.setState({
-        allSelected: false
-      })
+  onDragStart = (initial) => {
+    if (window.navigator.vibrate) {
+      window.navigator.vibrate(100);
     }
   }
 
+  onDragEnd = (result) => {
+    if (!result.destination) {
+      return;
+    }
+
+    const selectedLessons = this.reorder(
+      this.state.selectedLessons,
+      result.source.index,
+      result.destination.index
+    );
+
+    this.setState({
+      selectedLessons
+    });
+  }
+
+  reorder = (list, startIndex, endIndex) => { //mobx
+    const result = Array.from(list)
+    const [removed] = result.splice(startIndex, 1)
+    result.splice(endIndex, 0, removed)
+
+    return result
+  }
 
   render() {
     return (
-      <div className="pa5 flex flex-column eh-mw9 bg-white-secondary">
-        <List
-          selectionList={this.state.lessonList}
-          render={(
-            selectionList,
-            selected,
-            select,
-            selectAll,
-            remove,
-            removeAll,
-            isSlected,
-          ) => (
-              <div className="bg-white br2 shadow-1 flex flex-column w-100 overflow-hidden">
-                <div className="flex bb bw1 b--black-10">
-                  <div className="flex items-center pa3 f4 black avenir w-50  br bw1 b--black-10">
-                    {'Prerequisite Content'}
-                  </div>
-                  <div className="pa2 w-50 flex justify-around">
-                    <input
-                      type="text"
-                      className="f6 block mv2 mh1 w-100 pl1 black avenir w-90 br2 ba bw1 b--black-10 flex"
-                      placeholder="Search for lessons"
-                      {...inputStyle}
-                      onChange={this.onSearchInputChanged}
-                    />
-                  </div>
-                </div>
+      <div className='flex flex-column vh-100'>
+        <div className='flex flex-column'>
+          <div className='flex flex-row'>
+            <button onClick={this.onToggleClick}>{this.state.isOpen ? 'close' : 'open'}</button>
+          </div>
 
-                <div className="flex">
-                  <div className="flex flex-column w-50 br bw1 b--black-10 justify-between">
-                    <ul className="ma0 pa0" {...scrollSectionStyle}>
-                      {selected.map((item, i) => (
-                        <li
-                          className="bb bw1 b--black-10 ph3 pv2 flex list"
-                          key={i}
-                          {...lastChildStyle}
-                        >
-                          <span className="pl3">{item}</span>
-                        </li>
-                      ))}
-                    </ul>
+          <DragDropContext
+            onDragStart={this.onDragStart}
+            onDragEnd={this.onDragEnd}
+          >
+            <Droppable droppableId='contentList'>
+              {(dropProvided, dropSnapshot) => (
+                <div>
+                  <div ref={dropProvided.innerRef}>
+                    {
+                      this.state.selectedLessons.map((item, index) => (
+                        <Draggable key={item.slug} draggableId={item.slug} index={index}>
+                          {(dragProvided, dragSnapshot) => (
+
+                            <div ref={dragProvided.innerRef}>
+                              <div
+                                key={item.slug}
+                                {...dragProvided.draggableProps}
+                                {...dragProvided.dragHandleProps}
+                                onClick={() => this.removeItem(item)}
+                              >
+                                {item.slug}
+                              </div>
+                              {dragProvided.placeholder}
+                            </div>
+                          )}
+                        </Draggable>
+                      ))
+                    }
                   </div>
-                  <div className="flex flex-column bg-light-gray w-50 justify-between">
-                    <ul {...scrollSectionStyle} className="ma0 pa0">
-                      {selectionList.map((item, i) => (
-                        <li
-                          className="bb bw1 b--black-10 ph3 pv2 list"
-                          key={i}
-                          {...lastChildStyle}
-                        >
-                          <input
-                            type="checkbox"
-                            checked={isSlected(item)}
-                            onChange={event =>
-                              this.lessonCheckboxChanged(
-                                event,
-                                item,
-                                select,
-                                remove,
-                              )
-                            }
-                          />
-                          <span className="pl3">{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                  {dropProvided.placeholder}
                 </div>
-                <div className="flex bt bw1 b--black-10 justify-between">
-                  <div className="flex items-center pa3 w-50 br bw1 b--black-10">
-                    <div
-                      className="f6 self-bottom flex items-center pointer"
-                      onClick={() => {
-                        removeAll()
-                        this.clearAllSelected()
-                      }}
-                    >
-                      <Icon type="cancel" size={"small"} />
-                      <span className="pl2">Clear list</span>
-                    </div>
-                  </div>
-                  <div className="flex justify-between items-center pa3 w-50">
-                    <div className="f6">
-                      <input
-                        type="checkbox"
-                        checked={this.state.allSelected}
-                        onChange={event => {
-                          this.toggleSelected()
-                          if (this.state.allSelected) {
-                            remove(this.state.lessonList.filter(
-                              (item) => isSlected(item)
-                            ))
-                            this.clearAllSelected()
-                          } else {
-                            selectAll()
-                          }
-                        }}
-                      />
-                      <label className="pl2">Select All</label>
-                    </div>
-                    <Button
-                      className="self-end"
-                      outline
-                      size="small"
-                      color="blue"
-                      onClick={event => {
-                        removeAll()
-                        this.clearAllSelected()
-                      }}
-                    >
-                      Clear list
-                    </Button>
-                  </div>
+              )}
+            </Droppable>
+          </DragDropContext>
+
+        </div>
+
+
+        {!this.state.isOpen
+          ? null
+          : <div className='flex flex-column'>
+            <div className='flex flex-row'>
+            <input onChange={this.onSearchInputChange}/>
+            </div>
+            {
+              this.state.allLessons.map((item) => (
+                <div key={item.slug} onClick={() => this.selectItem(item)}
+                     style={{fontWeight: some(this.state.selectedLessons, item) ? 'bold' : 'normal'}}>
+                  <input readOnly={true} type="checkbox"
+                         checked={some(this.state.selectedLessons, item)}/>{item.slug}
                 </div>
-              </div>
-            )}
-        />
+              ))
+
+            }
+          </div>}
+
       </div>
     )
   }
