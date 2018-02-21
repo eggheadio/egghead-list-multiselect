@@ -154,12 +154,17 @@ export default class ContentSelector extends React.Component {
   }
 
   render() {
+
+    const {
+      heading
+    } = this.props;
+
     return (
       <div className="bg-white flex f4 black avenir br2 ma3 overflow-hidden">
         <div className="flex flex-column flex-grow-1 b--black-10">
-          <div className="flex items-center justify-between b--black-10 bb pa3">
+          <div className="flex items-center justify-between b--black-10 bb pv3 ph4">
             <div {...headingHeight} className="flex items-center fw4 f3">
-              {'Heading'}
+              {heading}
             </div>
 
             <div
