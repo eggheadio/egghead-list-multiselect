@@ -83,7 +83,7 @@ export default class ContentSelector extends React.Component {
   state = {
     selectedLessons, //mobx
     allLessons, //mobx
-    isOpen: true
+    isOpen: false
   }
 
   componentDidMount() {
